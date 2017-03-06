@@ -11,15 +11,16 @@ string cnv2Base(int,int);
 int main() {
     
     //initialize variables... arrays are for base16, base8, and base2
-    char arr16[100] = {0}, arr8[100] = {0}, arr2[100] = {0};
+    char arr16[200] = {0}, arr8[200] = {0}, arr2[200] = {0};
     int num, num1, exp = 0, base, limit=0, i = 0, div, tst=1;
     string arr;
     //get inputs
     cout<<"Enter a number to convert into the base"<<endl;
     cin>>num;
+    do{
     cout<<"Enter the base of that number"<<endl;
     cin>>base;
-    
+    }while (base <=0);
     //Figure out the upper limit e.g. 2,4,8,16,32 etc
     cout<<"number In base "<<base<<endl;
     arr = cnv2Base(num, base); 
@@ -33,11 +34,11 @@ int main() {
 }
 int decTot(string nonBin, int base){
     int exp = 1, len = 0, decVal = 0, j=0,z=0, ascii, arr[100] = {0};
-    for (int i = 0; nonBin[i] != 'z'; i++){
+    for (int i = 0; nonBin[i+1] != 'z'; i++){
         len++;//Find the length of the array'
     }
     cout<<endl<<"Number reversed: ";
-    j = len-2;      //When set at j=len-1, for some reason, nonBin[j] == null. j=len-2 fixes that.
+    j = len-1;      //When set at j=len-1, for some reason, nonBin[j] == null. j=len-2 fixes that.
     while (j >= 0){ // It probably has to do with the for loop looking for the flag 'z'
         ascii = nonBin[j] <= 57 ? static_cast<int>(nonBin[j]) - 48 : static_cast<int>(nonBin[j]) - 55;
         arr[z] = ascii;cout<<Ltr(arr[z]);
@@ -78,15 +79,11 @@ char Ltr(int num){
 
 int expo(int num, int exp){
     int n = num;
+    if (exp == 0) return 1;
     for (int i = 1; i < exp; i++){
         n *= num;
     }
-    if(exp == 0){
-        return 1;
-    }
-    else{
-        return n;
-    }
+    return n;
 }   
 string cnv2Base(int num, int base){
     int i=0,limit=0,exp=0,div;
